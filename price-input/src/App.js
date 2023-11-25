@@ -7,7 +7,7 @@ export default function App() {
     <main>
       <section className="counter-app">
         <div className="inner-container ">
-          <h1>Counter</h1>
+          <h1>Price Input</h1>
           <Counter />
         </div>
       </section>

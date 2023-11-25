@@ -1,19 +1,17 @@
 import React, { useState } from "react";
+import PlusMinusButtons from "./PlusMinusButtons";
+import PriceInput from "./PriceInput";
 
 export default function Counter() {
   let [count, setCount] = useState(0);
   let [counterInfo, setCounterInfo] = useState({
-    incrementCount: 0,
     decrementCount: 0,
   });
-  // const [validation, setValidation] = useState(0);
+
+  const [price, setPrice] = useState(0);
 
   const handlePlus = () => {
     setCount(count + 1);
-    setCounterInfo({
-      ...counterInfo,
-      incrementCount: counterInfo.incrementCount + 1,
-    });
   };
 
   const handleMinus = () => {
@@ -31,24 +29,27 @@ export default function Counter() {
     setCounterInfo({
       ...counterInfo,
       decrementCount: 0,
-      incrementCount: 0,
     });
   };
 
+  const handlerChange = (value) => {
+    setPrice(value);
+    if (count > 0) {
+      setPrice(value * count);
+    }
+  };
+
   return (
-    <div className="counter flex flex-column medium-gap">
+    <div className="order-details flex flex-column medium-gap">
       <div className="counter-controls flex flex-row align-items-center flex-wrap small-gap">
-        <button className="counter-btn increment-btn" onClick={handlePlus}>
-          +
-        </button>
-        <span className="green">{count}</span>
-        <button className="counter-btn decrement-btn" onClick={handleMinus}>
-          -
-        </button>
+        <p className="quantity">
+          Quantity: <span className="green">{count}</span>
+        </p>
+        <PlusMinusButtons className="counter-btn increment-btn" onClick={handlePlus} btnInput={"+"}></PlusMinusButtons>
+        <PlusMinusButtons className="counter-btn decrement-btn" onClick={handleMinus} btnInput={"-"}></PlusMinusButtons>
       </div>
-      <div className="counter-increment-decrement flex flex-wrap medium-gap">
-        <p>Increments: <span className="green">{counterInfo.incrementCount}</span></p>
-        <p>Decrements: <span className="green">{counterInfo.decrementCount}</span></p>
+      <div className="price flex align-items-center x-small-gap">
+        <PriceInput label="Price: $" placeholder="Enter Price" value={price} onChange={handlerChange} />
       </div>
       <button className="reset-btn" onClick={resetBtn}>
         Reset
