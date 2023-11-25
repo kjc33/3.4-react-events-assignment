@@ -3,12 +3,17 @@ import PlusMinusButtons from "./PlusMinusButtons";
 import PriceInput from "./PriceInput";
 
 export default function Counter() {
-  let [count, setCount] = useState(0);
+  let [count, setCount] = useState(1);
   let [counterInfo, setCounterInfo] = useState({
     decrementCount: 0,
   });
 
-  const [price, setPrice] = useState(0);
+  const [pricePerItem, setPricePerItem] = useState(0);
+  const totalPrice = pricePerItem * count;
+
+  const handlerChange = (value) => {
+    setPricePerItem(value);
+  };
 
   const handlePlus = () => {
     setCount(count + 1);
@@ -30,13 +35,7 @@ export default function Counter() {
       ...counterInfo,
       decrementCount: 0,
     });
-  };
-
-  const handlerChange = (value) => {
-    setPrice(value);
-    if (count > 0) {
-      setPrice(value * count);
-    }
+    setPricePerItem(0);
   };
 
   return (
@@ -48,8 +47,11 @@ export default function Counter() {
         <PlusMinusButtons className="counter-btn increment-btn" onClick={handlePlus} btnInput={"+"}></PlusMinusButtons>
         <PlusMinusButtons className="counter-btn decrement-btn" onClick={handleMinus} btnInput={"-"}></PlusMinusButtons>
       </div>
-      <div className="price flex align-items-center x-small-gap">
-        <PriceInput label="Price: $" placeholder="Enter Price" value={price} onChange={handlerChange} />
+      <div className="price">
+        <PriceInput label="Price: $" placeholder="Enter Price" value={pricePerItem} onChange={handlerChange} />
+      </div>
+      <div className="total-price">
+        <p>Total: <span className="green">${totalPrice}</span></p>
       </div>
       <button className="reset-btn" onClick={resetBtn}>
         Reset

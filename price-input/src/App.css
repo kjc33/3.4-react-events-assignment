@@ -62,9 +62,10 @@
 
   input.price {
     border: solid 1px #cccccc;
-    padding: 5px;
+    padding: 10px;
+    margin-left: 5px;
     width: 100%;
-    max-width: 170px;
+    max-width: 160px;
   }
   
   input.price:focus {
